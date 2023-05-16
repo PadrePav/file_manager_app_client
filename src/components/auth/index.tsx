@@ -11,7 +11,7 @@ const AuthRootComponent = () => {
 
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault()
-
+    console.log(password)
     console.log(userName)
   }
 
