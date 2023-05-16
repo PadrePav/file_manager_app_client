@@ -1,24 +1,19 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {Route, Routes} from "react-router-dom";
+import PrivateRoute from "./utils/router/privateRoute";
+import AuthRootComponent from "./components/auth";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Routes>
+        <Route element={<PrivateRoute/>}>
+          <Route path='/' element={<h1>Home page</h1>}/>
+        </Route>
+        <Route path='sign-up' element={<AuthRootComponent/>}/>
+        <Route path='sign-in' element={<AuthRootComponent/>}/>
+
+      </Routes>
     </div>
   );
 }
