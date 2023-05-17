@@ -1,12 +1,8 @@
-import React from 'react';
+import React, {JSX} from 'react';
 import {Button, TextField, Typography} from "@mui/material";
+import {IPropsAuth} from "../../../common/types/auth";
 
-interface IAuth {
-  setUserName:  React.Dispatch<React.SetStateAction<string>>
-  setPassword:  React.Dispatch<React.SetStateAction<string>>
-}
-
-const Signup = (props: IAuth) => {
+const Signup: React.FC<IPropsAuth> = (props: IPropsAuth): JSX.Element => {
   const {setUserName, setPassword} = props
 
   return (
