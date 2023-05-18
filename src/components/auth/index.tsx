@@ -32,7 +32,6 @@ const AuthRootComponent: React.FC = (): JSX.Element => {
         dispatch(login(newUser.data))
         navigate('/')
       } catch (e: any) {
-        console.log(e)
         setSnackbarMessage(e.response.data.message);
         setOpenSnackbar(true);
       }
@@ -42,7 +41,6 @@ const AuthRootComponent: React.FC = (): JSX.Element => {
         dispatch(login(user.data))
         navigate('/')
       } catch (e: any) {
-        console.log(e)
         setSnackbarMessage(e.response.data.message);
         setOpenSnackbar(true);
       }
