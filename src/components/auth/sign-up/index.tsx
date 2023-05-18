@@ -1,9 +1,10 @@
 import React, {JSX} from 'react';
 import {Button, TextField, Typography} from "@mui/material";
 import {IPropsAuth} from "../../../common/types/auth";
+import MySnackbar from "../../snackbar";
 
 const Signup: React.FC<IPropsAuth> = (props: IPropsAuth): JSX.Element => {
-  const {setUserName, setPassword} = props
+  const {setUserName, setPassword, navigate, openSnackbar, snackbarMessage, setOpenSnackbar} = props
 
   return (
     <>
@@ -30,10 +31,11 @@ const Signup: React.FC<IPropsAuth> = (props: IPropsAuth): JSX.Element => {
       </Button>
       <Typography textAlign='center' variant="body1" >
         Already have an account?
-        <span className='internalText'>
+        <span onClick={() => navigate('/sign-in')} className='internalText'>
           Sign in
         </span>
       </Typography>
+      <MySnackbar state={openSnackbar} time={5000} snackbarMessage={snackbarMessage} setOpenSnackbar={setOpenSnackbar} />
     </>
   );
 };
