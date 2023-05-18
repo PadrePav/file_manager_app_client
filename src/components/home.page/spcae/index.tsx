@@ -1,12 +1,7 @@
 import React, {useState} from 'react';
-import {Box, Divider, IconButton, List, ListItem, ListItemButton, ListItemIcon, Typography} from "@mui/material";
-import DeleteIcon from '@mui/icons-material/Delete';
-import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
-import FolderIcon from '@mui/icons-material/Folder';
+import {Box, List,} from "@mui/material";
 import FolderList from "./folder";
 import {useAppSelector, useUserFolder} from "../../../utils/hook";
-import {instance} from "../../../utils/axios";
-import {IFolder} from "../../../common/types/home.page";
 
 const Space = () => {
   const {user} = useAppSelector(state => state.auth)
