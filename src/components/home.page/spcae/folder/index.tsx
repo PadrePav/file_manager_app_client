@@ -3,7 +3,6 @@ import {IconButton, ListItem, ListItemButton, ListItemIcon, Typography} from "@m
 import DeleteIcon from "@mui/icons-material/Delete";
 import FolderIcon from "@mui/icons-material/Folder";
 import {IFolder, IPropsFolder} from "../../../../common/types/home.page";
-import {useUserFolder} from "../../../../utils/hook";
 
 const FolderList = (props: IPropsFolder) => {
   const {folder, setSelectedFolder} = props
