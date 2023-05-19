@@ -30,7 +30,7 @@ const AuthRootComponent: React.FC = (): JSX.Element => {
       try {
         const newUser = await instance.post('auth/sign-up', userData)
         dispatch(login(newUser.data))
-        navigate('/')
+        navigate('/user')
       } catch (e: any) {
         setSnackbarMessage(e.response.data.message);
         setOpenSnackbar(true);
@@ -39,7 +39,7 @@ const AuthRootComponent: React.FC = (): JSX.Element => {
       try {
         const user = await instance.post('auth/sign-in', userData)
         dispatch(login(user.data))
-        navigate('/')
+        navigate('/user')
       } catch (e: any) {
         setSnackbarMessage(e.response.data.message);
         setOpenSnackbar(true);
