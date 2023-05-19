@@ -1,28 +1,38 @@
 import React from 'react';
-import {IconButton, ListItem, ListItemButton, ListItemIcon, Typography} from "@mui/material";
+import {Divider, IconButton, ListItem, ListItemButton, ListItemIcon, Typography} from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import FolderIcon from "@mui/icons-material/Folder";
 import {IFolder, IPropsFolder} from "../../../../common/types/home.page";
+import {Link, useNavigate} from "react-router-dom";
 
 const FolderList = (props: IPropsFolder) => {
-  const {folder, setSelectedFolder} = props
-
+  const {sourceFolder, setDeletedFolder} = props
+  const navigate = useNavigate()
+  const handleClick = (folderId: string) => {
+    const result = window.confirm('Are you sure you want to delete this folder?');
+    if (result) {
+      setDeletedFolder(folderId);
+    } else {
+      console.log('Действие отменено');
+    }
+  }
 
   return (
   <>
-    {folder.folders?.map((folder: IFolder, index: number) => {
+    {sourceFolder.folders?.map((folder: IFolder, index: number) => {
 
     return (
+      <>
         <ListItem
           key={index}
           secondaryAction={
-            <IconButton style={{marginLeft: '20px'}}>
-              <DeleteIcon/>
+            <IconButton style={{marginLeft: '20px'}} onClick={() => handleClick(folder.folderId)}>
+              <DeleteIcon />
             </IconButton>
           }
           disableGutters
         >
-          <ListItemButton onDoubleClick={() => setSelectedFolder(folder.folderId)}>
+          <ListItemButton onDoubleClick={() => navigate(`/user/folder/${folder.folderId}`)}>
             <ListItemIcon style={{minWidth: 40, marginLeft: 10}}>
               <FolderIcon/>
             </ListItemIcon>
@@ -31,6 +41,8 @@ const FolderList = (props: IPropsFolder) => {
             </Typography>
           </ListItemButton>
         </ListItem>
+        <Divider />
+      </>
     )
   })}
 </>

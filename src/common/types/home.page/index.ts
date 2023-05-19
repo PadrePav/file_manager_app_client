@@ -1,6 +1,6 @@
 export interface IPropsFolder {
-  folder: IFolder;
-  setSelectedFolder: (folderId: string) => void;
+  sourceFolder: IFolder;
+  setDeletedFolder: (value: string) => void;
 }
 
 export interface IFolder {

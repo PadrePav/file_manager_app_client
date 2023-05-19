@@ -1,9 +1,9 @@
 import React from 'react';
-import Space from "./spcae";
+import RootSpace from "./spcae/root.space";
 
 const HomePage = () => {
   return (
-    <Space/>
+    <RootSpace/>
   );
 };
 
