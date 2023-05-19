@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Box, List, Skeleton,} from "@mui/material";
+import {Box, List} from "@mui/material";
 import FolderList from "./folder";
 import {useDeleteFolder, useUserFolder} from "../../../utils/hook";
 import FileList from "./file";

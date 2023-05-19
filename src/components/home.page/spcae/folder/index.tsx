@@ -3,7 +3,7 @@ import {Divider, IconButton, ListItem, ListItemButton, ListItemIcon, Typography}
 import DeleteIcon from "@mui/icons-material/Delete";
 import FolderIcon from "@mui/icons-material/Folder";
 import {IFolder, IPropsFolder} from "../../../../common/types/home.page";
-import {Link, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 const FolderList = (props: IPropsFolder) => {
   const {sourceFolder, setDeletedFolder} = props
