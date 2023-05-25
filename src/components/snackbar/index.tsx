@@ -8,11 +8,12 @@ const MySnackbar: React.FC<ISnackbar> = (props: ISnackbar): JSX.Element => {
   let margin = -55
 
   if (typeof snackbarMessage !== "string") {
-    const snackbarList = snackbarMessage.map((message) => {
+    const snackbarList = snackbarMessage.map((message, index) => {
       margin += 55
       return (
         <>
           <Snackbar
+            key={index}
             style={{marginBottom: `${margin}px`}}
             open={state}
             autoHideDuration={time}

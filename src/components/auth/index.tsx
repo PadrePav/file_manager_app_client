@@ -30,16 +30,20 @@ const AuthRootComponent: React.FC = (): JSX.Element => {
       try {
         const newUser = await instance.post('auth/sign-up', userData)
         dispatch(login(newUser.data))
-        navigate('/user')
+        navigate('/user/root')
+        sessionStorage.setItem('userName', `${newUser.data.userName}`)
+        sessionStorage.setItem('token', `${newUser.data.token}`)
       } catch (e: any) {
         setSnackbarMessage(e.response.data.message);
         setOpenSnackbar(true);
       }
     } else if (location.pathname === '/sign-in') {
       try {
-        const user = await instance.post('auth/sign-in', userData)
-        dispatch(login(user.data))
-        navigate('/user')
+        const {data} = await instance.post('auth/sign-in', userData)
+        dispatch(login(data))
+        sessionStorage.setItem('userName', `${data.userName}`)
+        sessionStorage.setItem('token', `${data.token}`)
+        navigate('/user/root')
       } catch (e: any) {
         setSnackbarMessage(e.response.data.message);
         setOpenSnackbar(true);

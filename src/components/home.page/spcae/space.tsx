@@ -1,46 +1,35 @@
 import React, {useState} from 'react';
-import {Box, List} from "@mui/material";
+import {Box, Divider, List} from "@mui/material";
 import FolderList from "./folder";
-import {useDeleteFolder, useUserFolder} from "../../../utils/hook";
+import {useAppDispatch, useDeleteFolder, useFolderForm, useUserFolder} from "../../../utils/hook";
 import FileList from "./file";
 import {useParams} from "react-router-dom";
+import {setFolderId} from "../../../store/slice/folderform";
 
 const Space = () => {
   const {id} = useParams()
   const [deletedFolder, setDeletedFolder] = useState('')
-  const deletedLoading = useDeleteFolder(deletedFolder)
-  const folder = useUserFolder('folder', `${id}`, deletedLoading)
+  useDeleteFolder(deletedFolder, setDeletedFolder)
+  const {isStatusUpdated} = useFolderForm()
+  const folder = useUserFolder(isStatusUpdated, id)
+  const dispatch = useAppDispatch()
 
-
+  const folderDrop = () => {
+    dispatch(setFolderId(folder.data.id))
+    return folder.data
+  }
 
   return (
-    <Box
-      position='absolute'
-      top='5%'
-      left='10%'
-      right='10%'
-      bottom='10%'
-      display="flex"
-    >
-      <Box
-        maxWidth='600px'
-        width='600px'
-        margin='auto'
-        height='80%'
-        px={1}
-        borderRadius={2}
-        boxShadow={'2px 2px 5px #ccc'}
-        overflow='auto'
-      >
-        {
-          !folder.loading ?
-          <List sx={{bgcolor: 'background.black'}}>
-            <FolderList sourceFolder={folder.data} setDeletedFolder={setDeletedFolder}/>
-            <FileList files={folder.data.files}/>
-          </List> :
-          null
-        }
-      </Box>
+    <Box>
+      {
+        !folder.loading ?
+        <List sx={{bgcolor: 'background.black'}} component="nav" aria-label="main mailbox folders">
+          <Divider />
+          <FolderList sourceFolder={folderDrop()} setDeletedFolder={setDeletedFolder}/>
+          <FileList files={folder.data.files}/>
+        </List> :
+        null
+      }
     </Box>
   );
 };

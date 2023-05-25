@@ -1,9 +1,11 @@
 import {configureStore} from "@reduxjs/toolkit";
 import authSlice from "./slice/auth";
+import folderSlice from "./slice/folderform";
 
 const store = configureStore({
   reducer: {
-    auth: authSlice
+    auth: authSlice,
+    folderId: folderSlice
   }
 })
 

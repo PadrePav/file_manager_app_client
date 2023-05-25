@@ -1,45 +1,35 @@
-import React, {useState} from 'react';
-import {Box, List,} from "@mui/material";
+import React, {SyntheticEvent, useState} from 'react';
+import {Box, Divider, List, Typography,} from "@mui/material";
 import FolderList from "./folder";
-import {useAppSelector, useDeleteFolder, useUserFolder} from "../../../utils/hook";
+import {useAppDispatch, useAppSelector, useDeleteFolder, useFolderForm, useUserFolder} from "../../../utils/hook";
 import FileList from "./file";
+import {setFolderId} from "../../../store/slice/folderform";
+import {instance} from "../../../utils/axios";
 
 const RootSpace = () => {
   const {user} = useAppSelector(state => state.auth)
   const [deletedFolder, setDeletedFolder] = useState('')
-  const deletedLoading = useDeleteFolder(deletedFolder)
-  const folder = useUserFolder('user/root', 'pavel', deletedLoading)
-
+  useDeleteFolder(deletedFolder, setDeletedFolder)
+  const {isStatusUpdated} = useFolderForm()
+  const folder = useUserFolder(isStatusUpdated)
+  const dispatch = useAppDispatch()
+  const folderDrop = () => {
+    dispatch(setFolderId(folder.data.id))
+    return folder.data
+  }
 
 
   return (
-    <Box
-      position='absolute'
-      top='5%'
-      left='10%'
-      right='10%'
-      bottom='10%'
-      display="flex"
-    >
-      <Box
-        maxWidth='600px'
-        width='600px'
-        margin='auto'
-        height='80%'
-        px={1}
-        borderRadius={2}
-        boxShadow={'2px 2px 5px #ccc'}
-        overflow='auto'
-      >
-        {
-          !folder.loading ?
-          <List sx={{bgcolor: 'background.black'}}>
-            <FolderList key={1} sourceFolder={folder.data} setDeletedFolder={setDeletedFolder}/>
+    <Box>
+      {
+        !folder.loading ?
+          <List sx={{bgcolor: 'background.black'}} component="nav" aria-label="main mailbox folders">
+            <Divider />
+            <FolderList sourceFolder={folderDrop()} setDeletedFolder={setDeletedFolder}/>
             <FileList files={folder.data.files}/>
           </List> :
           null
-        }
-      </Box>
+      }
     </Box>
   );
 };
