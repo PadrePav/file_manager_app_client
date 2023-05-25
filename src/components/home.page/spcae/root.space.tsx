@@ -1,13 +1,11 @@
-import React, {SyntheticEvent, useState} from 'react';
-import {Box, Divider, List, Typography,} from "@mui/material";
+import React, {useState} from 'react';
+import {Box, Divider, List} from "@mui/material";
 import FolderList from "./folder";
-import {useAppDispatch, useAppSelector, useDeleteFolder, useFolderForm, useUserFolder} from "../../../utils/hook";
+import {useAppDispatch, useDeleteFolder, useFolderForm, useUserFolder} from "../../../utils/hook";
 import FileList from "./file";
 import {setFolderId} from "../../../store/slice/folderform";
-import {instance} from "../../../utils/axios";
 
 const RootSpace = () => {
-  const {user} = useAppSelector(state => state.auth)
   const [deletedFolder, setDeletedFolder] = useState('')
   useDeleteFolder(deletedFolder, setDeletedFolder)
   const {isStatusUpdated} = useFolderForm()
