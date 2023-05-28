@@ -1,8 +1,11 @@
 import React from 'react';
 import {AppBar, Box, Toolbar} from "@mui/material";
 import {Link, Outlet} from "react-router-dom";
+import {useAppDispatch} from "../../utils/hook";
+import {login} from "../../store/slice/auth";
 
 const Layout = () => {
+  const dispatch = useAppDispatch()
   const style = {
     textDecoration: 'none',
     color: '#ffffff'
@@ -17,6 +20,7 @@ const Layout = () => {
               <Link to={'/sign-in'} style={style} onClick={() => {
                 sessionStorage.removeItem('userName')
                 sessionStorage.removeItem('token')
+                dispatch(login(false))
               }}>
                 Log out
               </Link>
