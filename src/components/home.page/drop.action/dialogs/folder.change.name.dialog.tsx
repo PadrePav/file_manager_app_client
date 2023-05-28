@@ -10,9 +10,9 @@ const FolderChangeNameDialog = (props: any) => {
   const {folderId, isDialogOpen, setDialogOpen} = props
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState(['']);
-  const [folderName, setFolderName] = useState('')
-  const navigate = useNavigate()
-  const dispatch = useAppDispatch()
+  const [folderName, setFolderName] = useState('');
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const handleChangeFolderName = async () => {
     try {

@@ -1,6 +1,6 @@
 import React, {JSX, SyntheticEvent, useState} from 'react';
 import RootSpace from "./spcae/root.space";
-import {Route, Routes} from "react-router-dom";
+import {Route, Routes, useNavigate} from "react-router-dom";
 import Space from "./spcae/space";
 import {Box, Grid, Typography} from "@mui/material";
 import MyBreadcrumbs from "./breadcrumbs";
@@ -12,11 +12,12 @@ import {setStatusUpdate} from "../../store/slice/folderform";
 import DragAndDrop from "./drag.and.drop";
 
 const HomePage: React.FC = (): JSX.Element => {
-  const [folderName, setFolderName] = useState('')
-  const {folderId} = useFolderForm()
+  const [folderName, setFolderName] = useState('');
+  const {folderId} = useFolderForm();
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState(['']);
-  const dispatch = useAppDispatch()
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const handleSubmit = async (event: SyntheticEvent) => {
     event.preventDefault()
     const userName = sessionStorage.getItem('userName')
@@ -31,6 +32,9 @@ const HomePage: React.FC = (): JSX.Element => {
         });
       dispatch(setStatusUpdate(true));
     } catch (e: any) {
+      if (e.response.data.message === 'Unauthorized') {
+        navigate('/sign-in')
+      }
       setOpenSnackbar(true);
       setSnackbarMessage(e.response.data.message);
     }
