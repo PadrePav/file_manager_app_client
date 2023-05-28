@@ -5,8 +5,9 @@ import MySnackbar from "../../../snackbar";
 import {useNavigate} from "react-router-dom";
 import {useAppDispatch} from "../../../../utils/hook";
 import {setStatusUpdate} from "../../../../store/slice/folderform";
+import {IFolderChangeNameProps} from "../../../../common/types/home.page/drop.action/dialogs";
 
-const FolderChangeNameDialog = (props: any) => {
+const FolderChangeNameDialog = (props: IFolderChangeNameProps) => {
   const {folderId, isDialogOpen, setDialogOpen} = props
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState(['']);
