@@ -1,13 +1,17 @@
-import React, {JSX} from 'react';
+import React, {JSX, useState} from 'react';
 import {Divider, Grid, IconButton, ListItem, ListItemButton, ListItemIcon, Typography} from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import FolderIcon from "@mui/icons-material/Folder";
 import {IFolder, IPropsFolder} from "../../../../common/types/home.page";
 import {useNavigate} from "react-router-dom";
+import EditIcon from '@mui/icons-material/Edit';
+import FolderChangeNameDialog from "../../drop.action/dialogs/folder.change.name.dialog";
 
 const FolderList: React.FC<IPropsFolder> = (props: IPropsFolder): JSX.Element => {
   const {sourceFolder, setDeletedFolder} = props
   const navigate = useNavigate()
+  const [isDialogOpen, setDialogOpen] = useState(false)
+  const [folderId, setFolderId] = useState('')
   const handleClick = (folderId: string) => {
     const result = window.confirm('Are you sure you want to delete this folder?');
     if (result) {
@@ -26,6 +30,7 @@ const FolderList: React.FC<IPropsFolder> = (props: IPropsFolder): JSX.Element =>
 
   return (
   <>
+    <FolderChangeNameDialog isDialogOpen={isDialogOpen} setDialogOpen={setDialogOpen} folderId={folderId}/>
     {sourceFolder.folders?.map((folder: IFolder) => {
 
     return (
@@ -34,9 +39,17 @@ const FolderList: React.FC<IPropsFolder> = (props: IPropsFolder): JSX.Element =>
           style={{padding: 0}}
           key={folder.id}
           secondaryAction={
-            <IconButton style={{marginLeft: 20, marginRight: 15}} onClick={() => handleClick(folder.id)}>
-              <DeleteIcon />
-            </IconButton>
+            <>
+              <IconButton onClick={() => {
+                setDialogOpen(true)
+                setFolderId(folder.id)
+              }}>
+                <EditIcon/>
+              </IconButton>
+              <IconButton style={{marginLeft: 0, marginRight: 15}} onClick={() => handleClick(folder.id)}>
+                <DeleteIcon />
+              </IconButton>
+            </>
           }
           disableGutters
         >

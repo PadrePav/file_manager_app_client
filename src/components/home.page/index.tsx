@@ -14,23 +14,25 @@ import DragAndDrop from "./drag.and.drop";
 const HomePage: React.FC = (): JSX.Element => {
   const [folderName, setFolderName] = useState('')
   const {folderId} = useFolderForm()
-  const token = sessionStorage.getItem('token')
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState(['']);
   const dispatch = useAppDispatch()
   const handleSubmit = async (event: SyntheticEvent) => {
     event.preventDefault()
     const userName = sessionStorage.getItem('userName')
+    const token = sessionStorage.getItem('token')
     const folder = {
       folderName
     }
     try {
-      console.log(folderId, 'folderId')
-      await instance.post(`folder/create?userName=${userName}&parentFolderId=${folderId}`, folder, { headers: { Authorization: `Bearer ${token}`}})
-      dispatch(setStatusUpdate(true))
+      await instance.post(
+        `folder/create?userName=${userName}&parentFolderId=${folderId}`, folder,
+        { headers: { Authorization: `Bearer ${token}`}
+        });
+      dispatch(setStatusUpdate(true));
     } catch (e: any) {
-      setOpenSnackbar(true)
-      setSnackbarMessage(e.response.data.message)
+      setOpenSnackbar(true);
+      setSnackbarMessage(e.response.data.message);
     }
   }
 
@@ -45,7 +47,7 @@ const HomePage: React.FC = (): JSX.Element => {
         display="flex"
       >
         <Box
-          maxWidth='900px'
+          maxWidth='1050px'
           width='100%'
           margin='auto'
           height='80%'
